@@ -23,8 +23,21 @@
  */
 function range(start, end) {
     // YOUR CODE GOES BELOW HERE //
+    //2 conditionals, if start < end and if start > end
+    //for loop in each, one forward and one backward
+    var result = []; // for return 
     
+    if (start < end){
+        for (var i = start; i <= end; i++){
+            result.push(i);
+        }
+    } else if (start > end){
+        for (var i = start; i >= end; i--){ 
+            result.push(i);
+        }
+    }
     
+    return result;
     
     
     // YOUR CODE GOES ABOVE HERE //
