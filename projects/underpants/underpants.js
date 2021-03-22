@@ -467,15 +467,24 @@ _.pluck = function(array, prop){
 */
 
 _.every = function(collection, func){
+ //takes collection (array or object) and returns true if all elements pass. otherwise false
+ //use _.each
+ 
+ //thinking use _.each and push the effect of _.each into an array and then use reduce on that array  ??
+ 
+ //ooooorrrrr use _.each and said if func(x,y,z) push true into resultArray, else push false... 
+    //then say if resultArray.includes(false) return false, else return true ??
  
 
-
-if (_.each(collection, function(val, ik, col){
-    func(val, ik, col);
- })){
-     return true;
- }
- return false;
+ var arr = [];
+ _.each(collection, function(val, ik, col){
+    if (func(val, ik, col)){
+        arr.push(true);
+    } else {
+        arr.push(false); // girl fuck idk  
+    }
+ })
+    
     
 }
 

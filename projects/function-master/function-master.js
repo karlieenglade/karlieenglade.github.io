@@ -174,41 +174,35 @@ function isFriend(name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function nonFriends(name, array) {
-    //takes a name and array of objects, returns array of names that name is not friends with
     
-    //for-loop...if array[i].name===name, ...
-    //also check that array[i] has friends property first
-    //filter?? 
+    var namesArray = []; //names we will look through...all array[i].name values
+    var result = []; //for return... the nonFriends
+    var person = null; //the input name's object...if input isnot given, then it is null
     
-    //maybe if array[i].name===name, push array[i].friends into newArray and 
-        // then loop array (or loop friends array?) and if newArray[k] !== array[i].name (make variable before), 
-            // then push newArray[k] into thirdArray ???? and return thirdArray ??
-            //also maybe use for-of instead ??
-            
-        //first of all...no fucking way i need all this mess... loops r getting out of control bro
-        //probably should use FOR-OF loops... ??? 
-    
-    var person;     
-    var notFriendsArray =[];
+    //loop over input array
     for (var i = 0; i < array.length; i++){
-        person = array[i]; 
-        if (person.hasOwnProperty("friends") && person.friends.length > 0){
-            if (person.name === name){
-                // var notFriends = array[i].friends.filter(person => ! ... ) //ehhhhh
-            //then = current 
-                var friendsArray = person.friends; //array of the persons friends ...basically a copy
-            }
-        }    
-    }    
-    //now looping the friends array from above
-    for (var k = 0; k < friendsArray.length; k++){
-        //if name (each index) is not a name person in array (array[i].name) , then push namesArray[k] into result array
-        //if namesArray[k] !== eachObject.name 
-        if (friendsArray[k] !== person.name){
-            notFriendsArray.push(friendsArray[k]);
+        //if input name is any object (array value) 's name, then name is that person object
+            //(the object that the name belongs to)
+        if (array[i].name === name){
+            person = array[i];
+        } else{
+            //otherwise, push the object's name into namesArray
+            namesArray.push(array[i].name);
         }
     }
-return notFriendsArray;
+    //if input name is not given or nonexistent then just return the namesArray...bc all are not friends
+    if (person === null){
+        return namesArray;
+    }
+    //now loop over namesArray and if person is not at any index (not a friend), then push it into result array
+    for (var i = 0; i < namesArray.length; i++){
+        if (person.friends.indexOf(namesArray[i]) === -1){
+            result.push(namesArray[i]);
+        }
+        
+    }
+    //return result array of names who are not friends!
+    return result;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -216,6 +210,11 @@ return notFriendsArray;
 //////////////////////////////////////////////////////////////////////
 
 function updateObject(object, key, value) {
+//takes object, key and value
+//update object's key value with <value>
+//if object key doesn't exist, then add it
+object[key] = value;
+return object;
 
 }
 
@@ -224,7 +223,14 @@ function updateObject(object, key, value) {
 //////////////////////////////////////////////////////////////////////
 
 function removeProperties(object, array) {
-
+    //takes object and array of strings
+    //removes and properties in object if that key name is in array
+    for (var i = 0; i < array.length; i++){
+        if (object.hasOwnProperty(array[i])){
+            delete object[array[i]];
+        }
+    }
+    return object;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -232,7 +238,18 @@ function removeProperties(object, array) {
 //////////////////////////////////////////////////////////////////////
 
 function dedup(array) {
+    //takes array and return an array with all duplicates removed
+    var result = []; //for return 
+    //push input array values into result array
+    //loop over input array, then filter result array
+    //filter .. result.filter(elem => elem !== array[i])
+    
+    for (var i = 0; i < array.length; i++){
+        result.push(array[i]);
+        result.filter(elem => elem !== array[i])
+    }
 
+return result;
 }
 
 //////////////////////////////////////////////////////////////////////
