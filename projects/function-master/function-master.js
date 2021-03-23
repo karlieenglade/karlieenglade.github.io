@@ -239,17 +239,13 @@ function removeProperties(object, array) {
 
 function dedup(array) {
     //takes array and return an array with all duplicates removed
-    var result = []; //for return 
-    //push input array values into result array
-    //loop over input array, then filter result array
-    //filter .. result.filter(elem => elem !== array[i])
+    // var result = []; //for return 
+    //push input array values into result array ...or spread op
     
-    for (var i = 0; i < array.length; i++){
-        result.push(array[i]);
-        result.filter(elem => elem !== array[i])
-    }
-
-return result;
+    var result = [...new Set(array)];
+    
+    return result;
+    
 }
 
 //////////////////////////////////////////////////////////////////////
