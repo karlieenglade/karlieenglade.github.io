@@ -457,6 +457,7 @@ _.pluck = function(array, prop){
 *          current value, current key, <collection>
 *   2) If the return value of calling <function> for every element is true, return true
 *   3) If even one of them returns false, return false
+* 
 *   4) If <function> is not provided, return true if every element is truthy, otherwise return false
 * Edge Cases:
 *   1) what if <function> doesn't return a boolean
@@ -468,25 +469,33 @@ _.pluck = function(array, prop){
 
 _.every = function(collection, func){
  //takes collection (array or object) and returns true if all elements pass. otherwise false
- //use _.each
  
- //thinking use _.each and push the effect of _.each into an array and then use reduce on that array  ??
+ //if func is undefined or not given, then func just returns the input whose values will then be tested
+    //based on their truthy/falsy values 
+ if (func === undefined){
+     func = _.identity;
+ } 
  
- //ooooorrrrr use _.each and said if func(x,y,z) push true into resultArray, else push false... 
-    //then say if resultArray.includes(false) return false, else return true ??
- 
-
- var arr = [];
- _.each(collection, function(val, ik, col){
-    if (func(val, ik, col)){
-        arr.push(true);
+ //basically using the guts of the EACH function and saying if the test function fails (returns false) 
+    //at any element, return false. otherwise (if all pass/are true), return true
+ if (Array.isArray(collection)){
+        for (var i = 0; i < collection.length; i++){
+            //if any value is false, return false. otherwise return true
+            if (func(collection[i], i, collection) === false){
+                return false;
+            } 
+        }
     } else {
-        arr.push(false); // girl fuck idk  
-    }
- })
-    
-    
-}
+        for (var key in collection){
+            if (func(collection[key], key, collection) === false){
+                return false;
+            } 
+        }
+ 
+    } 
+    //return true if no iterations return false
+    return true;
+};
 
 
 /** _.some
@@ -510,6 +519,36 @@ _.every = function(collection, func){
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+_.some = function(collection, funk){
+//opposite of _.every function    
+
+    if (funk === undefined){
+     funk = _.identity;
+    } 
+ 
+ //if the test function fails (returns false) at any element, return false
+    //otherwise (if all pass/are true), return true
+ if (Array.isArray(collection)){
+        for (var i = 0; i < collection.length; i++){
+            //if any value is true, return false. otherwise return false
+            if (funk(collection[i], i, collection) === true){
+                return true;
+            } 
+        }
+    } else {
+        for (var key in collection){
+            if (funk(collection[key], key, collection) === true){
+                return true;
+            } 
+        }
+ 
+    } 
+    //return false if no iterations return true
+    return false;
+    
+    
+};
+
 
 /** _.reduce
 * Arguments:
@@ -530,6 +569,35 @@ _.every = function(collection, func){
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+_.reduce = function(array, funky, seed){
+    //calls funky for every element in array
+    //uses return value of funky as the previous result
+    
+    //if no seed, seed = array[0] ... or array[i] ?
+
+    //funky takes 4 parameters:
+        // <seed> OR last value returned from previous call OR array[0] ... "seed"
+        // <currentValue> current element in the array ... array[i] ... "e"
+        // <i> current index ..."i"
+        // <array> the whole array "a"
+
+    //seed is given or it's the first value or its result of prev call
+
+//using each to do something to each element
+   _.each(array, function (e, i, a){
+       //if seed is not given, then seed is first element
+       if (seed === undefined){
+           seed = array[0];
+       } else {
+           //otherwise, seed is the result of the (previous) function call 
+           seed = funky(seed, e, i, a);   
+       }
+   })
+   //returning the seed bc that is what is being added to and redefined on each iteration of reduce
+  return seed;
+}
+    
+
 
 /** _.extend
 * Arguments:
@@ -545,6 +613,14 @@ _.every = function(collection, func){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+_.extend = function(obja, ...objz){
+    //"..." rest param for infinite number of possible parameters
+    //Object.assign to copy last object's props to the first object
+        //should copy props to first object from following objects in order they are inputted
+    return Object.assign(obja, ...objz);
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Karlie's Website</title>
+    
+    <style>
+    body {
+        background: rgb(200, 225, 0);
+        color: rgb(45, 45, 45);
+        padding: 10px;
+        font-family: arial;
+    }
+    #all-contents {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    /* navigation menu */
+    nav {
+        background: rgb(0, 225, 0);
+        margin: 0 auto;
+        margin-bottom: 20px;
+        display: flex;
+        padding: 10px;
+        border-radius: 30px;
+    }
+    nav h1 {
+        display: flex;
+        align-items: center;
+        color: white;
+        flex: 1;
+        margin: 0;
+    }
+    nav ul {
+        list-style-image: none;
+    }
+    nav li {
+        display: inline-block;
+        padding: 0 10px;
+    }
+    nav a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    /* main container area beneath menu */
+    main {
+        background: rgb(245, 238, 219);
+        display: flex;
+        border-radius: 30px;
+    }
+    .sidebar {
+        margin-right: 25px;
+        padding: 10px;
+    }
+    .sidebar img {
+        width: 200px;
+    }
+    .content {
+        flex: 1;
+        padding: 15px;
+    }
+    h2, h3 {
+        margin: 0px;
+    }
+</style>
+ 
+  </head>
+  
+  <body>
+    <div id="all-contents"> 
+        <nav>
+        
+          <h1>Karlie's Website</h1>
+            <ul>
+            <li><a href="index.html"> Home </a></li>
+            <li><a href="portfolio.html"> Portfolio </a></li>
+            <li><a href="studies.html"> Studies </a></li>
+            </ul>
+        
+        </nav>
+
+        <main>
+          
+          <div class="sidebar">
+              <img src="https://64.media.tumblr.com/89db0cc2d4e21723a0662649e5881f06/56c78ea55897421b-69/s1280x1920/8e2d28c5a68763d7345921eb255ec58874fe6777.png">
+          </div>
+
+          <div class="content">
+            <h2>Karlie</h2>
+            <p>Spark Student</p>
+            
+            <div id="interests">
+              <h3>Interests</h3>
+              <ul>
+              <li>crafts</li>
+              <li>walking</li>
+              <li>resting</li>
+              </ul>
+              
+            </div>
+      
+          </div>
+
+        </main>
+    </div>
+</body>
+
+</html>

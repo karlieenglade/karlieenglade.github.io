@@ -143,8 +143,8 @@ var powerOfTwo = function(n) {
   //if n === 1 (after dividing by 2 as much as u cannn), return true
   if (n === 1){
     return true;
-    //if doesn't divide by 2 down until it reaches 1, then n is not a power of 2
-  } else if (n === 0){
+    //if doesn't divide by 2 down until it reaches 1, then n is not a power of two 
+  } else if (n < 1){
     return false;
   }
   
@@ -174,22 +174,28 @@ var reverse = function(string) {
 var palindrome = function(string) {
   //returns boolean
   //ignore spaces and capital letters.... if string[0] === " " , and .toLowerCase()
-  //base case
   
-  if (string.length === 1 || string.length === 0){
-    return true;
-  }
+  
+  //if character is a space, return string to the function with space removed 
   if (string[0] === " "){
-    return string.slice(1);
+    return palindrome(string.slice(1));
   }
   
-  if (string[0].toLowerCase() === string[string.length-1].toLowerCase()){
-    return palindrome(string.slice(1, string.length-1));
+  //base case and recursive case in one?????? 
+  //if string is at least 2 characters and they are the same (think mirror)
+    //or if more than 2 characters, if first and last are the same
+  if (string.length > 1 && string[0].toLowerCase() === string[string.length-1].toLowerCase()){
+    //extract the characters between the first and last and return that substring in the function
+    palindrome(string.substring(1, string.length-1));
+    //this will keep happening until the string length is either <= 1 or the first and last characters do not match
+    //if whole string passes, then it is a palindrome, so return true
+    return true;
+    //and if either of those is true (if string.length <= 1 or first and last characters don't match),
+    //then the string does not pass and is not a palindrome, so return false
+  } else {
+    return false;
   }
-  
-  
-  return false;
-  
+ 
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -198,18 +204,43 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
+  
+  // //base case
+  // if (y === x){
+  //   return 0;
+  // }
+  
+  // //recursive case
+  // //keep subtracting y from x until u can't...return the number that y cant be subtracted from
+  //   //aka if (after recursion) y === x, return y ??
+  //   return x - modulo(x-y, y);
+  //oh wow wasted my time!
 };
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
 // ATTENTION DO NOT LEAVE COMMENTS IN THIS FUNCTION. The test is looking for any ('/').
+
+//if y is 1 then return x since anything multiplied by 1 is 1
+//else return x plus function call at x, y-1
 var multiply = function(x, y) {
+  
+  if (y === 1){
+    return x;
+  } else if (x === 0 || y === 0){
+    return 0;
+  } else if (y < 0) {
+    return -x + multiply(x, y+1); 
+  }
+  
+  return x + multiply(x, y-1); 
+  
 };
 
 // 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
 var divide = function(x, y) {
-};
+}; 
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
@@ -225,21 +256,57 @@ var gcd = function(x, y) {
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
+  //base case
+  
+  if (str1.length === 0 && str2.length === 0){
+    return true;
+  }
+  if (str1[0] === str2[0]){
+    return compareStr(str1.slice(1), str2.slice(1));
+  } 
+  
+  return false;
+  
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
-var createArray = function(str){
+var createArray = function(str, arr = []){
+  //made default param arr = [] 
+  //base case
+  //once string is sliced away, we want to return the array (will be filled)
+  if (str.length === 0){
+    return arr;
+  } 
+  //otherwise if string has a length >= 1, then push first value into array
+   arr.push(str[0]);
+  
+  //recursive case
+  //return the string in the function with 1st value removed and also the array
+  return createArray(str.slice(1), arr);
+  
 };
 
 // 17. Reverse the order of an array
 var reverseArr = function (array) {
+  var arr = [];
+  //bc
+  if (arr.length === array.length){
+    return arr;
+  }
+  
+  //rc
+  return arr.concat(reverseArr(array.slice(1)),array[0]);
+  
 };
 
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
+  var array = [];
+//if array.length !== length then add 
+  
 };
 
 // 19. Count the occurence of a value inside a list.
